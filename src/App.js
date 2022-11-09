@@ -14,6 +14,7 @@ function App() {
 
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
+  const[error, setError] = useState('');
 
   function handleEmail(e){
     setEmail(e.target.value);
@@ -32,7 +33,8 @@ function App() {
       console.log(user);
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error.message);
+      setError(error.message);
     });
   } 
   return (
@@ -50,7 +52,7 @@ function App() {
             <h5>Your Password</h5>
             <Form.Control onBlur={handlePassword} type="password" placeholder="Password" />
           </Form.Group>
-          
+          <h4 className="text-danger">{error}</h4>
           <Button onClick={handleSubmit} variant="primary" type="submit">
             Submit
           </Button>
