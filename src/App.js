@@ -2,14 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
-import { getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
+import app from './firebase.init';
 
 
 
-const auth = getAuth(App);
-
-
+const auth = getAuth(app);
 
 function App() {
 
@@ -17,17 +16,24 @@ function App() {
   const[password, setPassword] = useState('');
 
   function handleEmail(e){
-    // console.log(e.target.value);
     setEmail(e.target.value);
   }
 
   function handlePassword(e){
-    // console.log(e.target.value);
     setPassword(e.target.value);
   }
 
   function handleSubmit(e){
     e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   } 
   return (
     <div>
