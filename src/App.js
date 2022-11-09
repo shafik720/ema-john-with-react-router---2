@@ -2,8 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
+import { getAuth } from "firebase/auth";
 
 
+
+const auth = getAuth(App);
 
 
 
