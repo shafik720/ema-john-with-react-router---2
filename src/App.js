@@ -25,7 +25,7 @@ function App() {
     setPassword(e.target.value);
   }
 
-  function handleCheckbox(e){
+  function handleCheckbox(e) {
     setRegistered(e.target.checked);
   }
 
@@ -46,7 +46,7 @@ function App() {
         <div className="row mt-5">
           <div className="col-lg-5 mx-auto">
             <Form>
-              <h2 className="text-primary text-center"> {registered ? 'Log In' : 'Sign Up' } </h2>
+              <h2 className="text-primary text-center"> {registered ? 'Log In' : 'Sign Up'} </h2>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <h5>Your Email</h5>
                 <Form.Control onBlur={handleEmail} type="email" placeholder="Enter email" />
@@ -57,7 +57,7 @@ function App() {
                 <Form.Control onBlur={handlePassword} type="password" placeholder="Password" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check onChange={handleCheckbox} type="checkbox" label="Check me out" />
+                <Form.Check onChange={handleCheckbox} type="checkbox" label="Already Registered" />
               </Form.Group>
               <h4 className="text-danger">{error}</h4>
               <Button onClick={handleSubmit} variant="primary" type="submit">
