@@ -44,7 +44,8 @@ function App() {
   function signIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const user = userCredential.user;        
+        setError('');
         console.log(user);
       })
       .catch((error) => {
@@ -53,6 +54,7 @@ function App() {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    (registered ? signIn() : signUp());
     signUp();
   }
   return (
