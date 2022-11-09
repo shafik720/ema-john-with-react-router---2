@@ -15,12 +15,15 @@ function App() {
 
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
+
   function handleEmail(e){
-    console.log(e.target.value);
+    // console.log(e.target.value);
+    setEmail(e.target.value);
   }
 
   function handlePassword(e){
-    console.log(e.target.value);
+    // console.log(e.target.value);
+    setPassword(e.target.value);
   }
 
   function handleSubmit(e){
