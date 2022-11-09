@@ -28,7 +28,7 @@ function App() {
   function handleCheckbox(e) {
     setRegistered(e.target.checked);
   }
-  function signUp(){
+  function signUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -39,6 +39,16 @@ function App() {
       });
   }
 
+  function signIn() {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }
   function handleSubmit(e) {
     e.preventDefault();
     signUp();
@@ -65,7 +75,7 @@ function App() {
               <h4 className="text-danger">{error}</h4>
               <Button onClick={handleSubmit} variant="primary" type="submit">
                 {registered ? 'Log In' : 'Sign Up'}
-          </Button>
+              </Button>
             </Form>
           </div>
         </div>
