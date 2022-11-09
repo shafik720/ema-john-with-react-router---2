@@ -44,7 +44,7 @@ function App() {
   function signIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;        
+        const user = userCredential.user;
         setError('');
         console.log(user);
       })
@@ -52,8 +52,12 @@ function App() {
         setError(error.message);
       });
   }
-  function verifyEmail(){
-    
+  function verifyEmail() {
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        // Email verification sent!
+        // ...
+      });
   }
   function handleSubmit(e) {
     e.preventDefault();
