@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { getAuth } from "firebase/auth";
+import { useState } from 'react';
 
 
 
@@ -12,6 +13,8 @@ const auth = getAuth(App);
 
 function App() {
 
+  const[email, setEmail] = useState('');
+  const[password, setPassword] = useState('');
   function handleEmail(e){
     console.log(e.target.value);
   }
