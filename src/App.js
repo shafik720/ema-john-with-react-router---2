@@ -28,9 +28,7 @@ function App() {
   function handleCheckbox(e) {
     setRegistered(e.target.checked);
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
+  function signUp(){
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -39,6 +37,11 @@ function App() {
       .catch((error) => {
         setError(error.message);
       });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    signUp();
   }
   return (
     <div>
