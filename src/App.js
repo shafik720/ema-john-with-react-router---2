@@ -61,7 +61,7 @@ function App() {
               </Form.Group>
               <h4 className="text-danger">{error}</h4>
               <Button onClick={handleSubmit} variant="primary" type="submit">
-                Submit
+                {registered ? 'Log In' : 'Sign Up'}
           </Button>
             </Form>
           </div>
