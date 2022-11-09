@@ -32,10 +32,12 @@ function App() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setError('');
         console.log(user);
       })
       .catch((error) => {
         setError(error.message);
+        console.log(error);
       });
   }
 
