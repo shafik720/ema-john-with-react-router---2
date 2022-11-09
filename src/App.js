@@ -52,6 +52,9 @@ function App() {
         setError(error.message);
       });
   }
+  function verifyEmail(){
+    
+  }
   function handleSubmit(e) {
     e.preventDefault();
     (registered ? signIn() : signUp());
