@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 import app from './firebase.init';
 
@@ -33,6 +33,7 @@ function App() {
       .then((userCredential) => {
         const user = userCredential.user;
         setError('');
+        verifyEmail();
         console.log(user);
       })
       .catch((error) => {
@@ -55,8 +56,7 @@ function App() {
   function verifyEmail() {
     sendEmailVerification(auth.currentUser)
       .then(() => {
-        // Email verification sent!
-        // ...
+        console.log('Email Verification Sent');
       });
   }
   function handleSubmit(e) {
