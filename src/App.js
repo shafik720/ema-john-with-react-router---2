@@ -2,34 +2,93 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from 'react';
+import app from './firebase.init';
 
 
 
-
+const auth = getAuth(app);
 
 function App() {
-  
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [registered, setRegistered] = useState(false);
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleCheckbox(e) {
+    setRegistered(e.target.checked);
+  }
+  function signUp() {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setError('');
+        verifyEmail();
+        console.log(user);
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log(error);
+      });
+  }
+
+  function signIn() {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setError('');
+        console.log(user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }
+  function verifyEmail() {
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        console.log('Email Verification Sent');
+      });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    (registered ? signIn() : signUp());
+    signUp();
+  }
   return (
     <div>
       <div className="container my-5">
         <div className="row mt-5">
-            <div className="col-lg-5 mx-auto">
+          <div className="col-lg-5 mx-auto">
             <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <h2 className="text-primary text-center"> {registered ? 'Log In' : 'Sign Up'} </h2>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
                 <h5>Your Email</h5>
-                <Form.Control type="email" placeholder="Enter email" />                
-            </Form.Group>
+                <Form.Control onBlur={handleEmail} type="email" placeholder="Enter email" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <h5>Your Password</h5>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          
-          <Button variant="primary" type="submit">
-            Sign Up
-          </Button>
-        </Form>
-            </div>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <h5>Your Password</h5>
+                <Form.Control onBlur={handlePassword} type="password" placeholder="Password" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check onChange={handleCheckbox} type="checkbox" label="Already Registered" />
+              </Form.Group>
+              <h4 className="text-danger">{error}</h4>
+              <Button onClick={handleSubmit} variant="primary" type="submit">
+                {registered ? 'Log In' : 'Sign Up'}
+              </Button>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
